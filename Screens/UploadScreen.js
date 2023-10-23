@@ -11,10 +11,14 @@ import FamousArt from "../FamousArt";
 import * as Font from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { useRoute } from "@react-navigation/native";
+import BackNavigator from "../BackNavigator";
 
 export default function UploadScreen({ navigation }) {
   return (
     <View style={styles.container}>
+      <View style={styles.backnav}>
+        <BackNavigator navigation={navigation} />
+      </View>
       <View>
         <Text>Upload Screen</Text>
       </View>
@@ -34,6 +38,13 @@ const styles = StyleSheet.create({
   },
 
   navbar: {
-    top: 410,
+    flex: 1,
+    top: "37%",
+  },
+
+  backnav: {
+    flex: 1,
+    top: "2%",
+    right: "53%",
   },
 });

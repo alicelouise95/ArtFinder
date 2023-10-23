@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  KeyboardAvoidingView,
 } from "react-native";
 import Nav from "../Nav";
 import FamousArt from "../FamousArt";
@@ -18,14 +19,26 @@ async function Loadfonts() {
   });
 }
 
-export default function Homepage({ navigation }) {
+export default function Homepage({ navigation, route }) {
   useEffect(() => {
     Loadfonts();
   }, []);
 
   const [searchText, setSearchtext] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [resultsText, setResultsText] = useState("");
+  const [favourites, addFavourites] = useState([]);
+
+  const addFavorite = (title) => {
+    if (!favorites.includes(title)) {
+      setFavorites([...favorites, title]);
+    }
+  };
+
+  const removeFavorite = (title) => {
+    const updatedFavorites = favorites.filter((fav) => fav !== title);
+    setFavorites(updatedFavorites);
+  };
 
   function SearchArt() {
     setIsLoading(true);
@@ -43,6 +56,9 @@ export default function Homepage({ navigation }) {
           setResultsText(first10Results);
           navigation.navigate("Results Screen", {
             resultsText: first10Results,
+            addFavorite,
+            favourites,
+            removeFavorite,
           });
           console.log("10 results shown: ");
           first10Results.forEach((result, index) => {
@@ -78,6 +94,7 @@ export default function Homepage({ navigation }) {
           onChangeText={setSearchtext}
           placeholder="Search for an artist or piece of art..."
           style={styles.addTextinput}
+          onSubmitEditing={SearchArt}
         />
         <TouchableOpacity
           onPress={() => {
@@ -104,10 +121,15 @@ export default function Homepage({ navigation }) {
       <View style={styles.featuredcontainer}>
         <Text style={styles.fontStyling}>Featured artwork</Text>
       </View>
-      <View style={styles.artContainer}>
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.artContainer}
+      >
         <FamousArt />
-      </View>
-      <Nav navigation={navigation} />
+      </KeyboardAvoidingView>
+
+      <Nav navigation={navigation} removeFavorite={removeFavorite} />
     </View>
   );
 }

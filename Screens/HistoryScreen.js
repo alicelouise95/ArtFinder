@@ -39,15 +39,18 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    bottom: 250,
+    flex: 1,
+    bottom: "15%",
   },
 
   navbar: {
-    top: 330,
+    flex: 1,
+    top: "21%",
   },
 
   backnav: {
-    bottom: 300,
-    paddingRight: 350,
+    flex: 1,
+    top: "2%",
+    right: "53%",
   },
 });

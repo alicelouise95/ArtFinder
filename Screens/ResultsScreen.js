@@ -17,8 +17,14 @@ export default function ResultsScreen({ route, navigation }) {
   const searchResults = route.params.resultsText;
   const data = searchResults;
   const navigateToDetailScreen = (artworkDetails) => {
-    navigation.navigate("Artwork Detail Screen", { artworkDetails });
+    navigation.navigate("Artwork Detail Screen", {
+      artworkDetails,
+      addFavourite,
+      favourites,
+      removeFavourite,
+    });
   };
+  const { addFavourite, favourites, removeFavourite } = route.params;
 
   return (
     <View style={styles.container}>
@@ -65,7 +71,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     flex: 1,
     top: 300,
-    left: 30,
+    left: 10,
+    textAlign: "justify",
   },
 
   resultItem: {

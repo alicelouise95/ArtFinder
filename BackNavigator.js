@@ -1,9 +1,9 @@
 import React from "react";
-import { View, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
 
 export default function BackNavigator({ navigation }) {
   return (
-    <View>
+    <View style={styles.backnav}>
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
@@ -17,3 +17,9 @@ export default function BackNavigator({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  backnav: {
+    position: "absolute",
+  },
+});

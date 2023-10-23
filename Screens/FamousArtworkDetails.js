@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   artworkImage: {
     width: 300,
     height: 400,
-    bottom: 30,
+    bottom: 10,
   },
   title: {
     fontSize: 24,
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   },
 
   backnav: {
-    bottom: 60,
-    paddingRight: 350,
+    bottom: 100,
+    right: 230,
   },
 
   description: {
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
   },
 
   navbar: {
-    top: 80,
+    top: 140,
   },
 });
