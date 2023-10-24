@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   content: {
-    flex: 1, // This makes the content take the remaining space
+    flex: 1,
   },
   favouriteItem: {
     flexDirection: "row",

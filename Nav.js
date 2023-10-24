@@ -8,12 +8,12 @@ import {
   Image,
 } from "react-native";
 
-export default function Nav({ navigation }) {
+export default function Nav({ navigation, history }) {
   return (
     <View style={styles.navcontainer}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Favourites Screen");
+          navigation.navigate("Favourites Screen", { history: history });
         }}
       >
         <Image
@@ -23,7 +23,7 @@ export default function Nav({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("History Screen");
+          navigation.navigate("History Screen", { history: history });
         }}
       >
         <Image
@@ -37,7 +37,7 @@ export default function Nav({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Homepage");
+          navigation.navigate("Homepage", { history: history });
         }}
       >
         <Image
@@ -47,7 +47,7 @@ export default function Nav({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Upload Screen");
+          navigation.navigate("Upload Screen", { history: history });
         }}
       >
         <Image

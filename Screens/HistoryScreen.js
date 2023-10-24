@@ -12,6 +12,10 @@ import BackNavigator from "../BackNavigator";
 
 export default function HistoryScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const history = route.params.history;
+
+  console.log("history data: ", history);
 
   return (
     <View style={styles.container}>
@@ -22,6 +26,17 @@ export default function HistoryScreen() {
         <Text style={{ fontSize: 30, fontFamily: "nunito-regular" }}>
           Recently Viewed Artwork
         </Text>
+      </View>
+      <View style={styles.historyContainer}>
+        <FlatList
+          data={history}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.historyItem}>
+              <Text style={styles.historyText}>{item.title}</Text>
+            </TouchableOpacity>
+          )}
+        />
       </View>
       <View style={styles.navbar}>
         <Nav navigation={navigation} />
@@ -43,9 +58,25 @@ const styles = StyleSheet.create({
     bottom: "15%",
   },
 
+  historyContainer: {
+    flex: 1,
+    top: 20,
+    width: "100%",
+  },
+
+  historyItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+
+  historyText: {
+    fontFamily: "nunito-regular",
+  },
+
   navbar: {
     flex: 1,
-    top: "21%",
+    top: "13%",
   },
 
   backnav: {

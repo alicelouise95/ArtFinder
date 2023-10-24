@@ -14,6 +14,7 @@ import BackNavigator from "../BackNavigator";
 
 export default function ArtworkDetailScreen({ route, navigation }) {
   const { artworkDetails } = route.params;
+  const history = route.params.history;
   const altText = artworkDetails.thumbnail.alt_text;
   const { addFavourite, favourites, removeFavourite } = route.params;
   const apiID = artworkDetails.id;
@@ -98,7 +99,7 @@ export default function ArtworkDetailScreen({ route, navigation }) {
           )}
         </ScrollView>
       </View>
-      <Nav navigation={navigation} />
+      <Nav navigation={navigation} history={history} />
     </View>
   );
 }

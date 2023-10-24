@@ -14,21 +14,46 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native";
 
 export default function ResultsScreen({ route, navigation }) {
+  console.log("ResultsScreen rendered");
   const searchResults = route.params.resultsText;
-  const data = searchResults;
-  const navigateToDetailScreen = (artworkDetails) => {
-    navigation.navigate("Artwork Detail Screen", {
-      artworkDetails,
-      addFavourite,
-      favourites,
-      removeFavourite,
-    });
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    console.log("Current history: ", JSON.stringify(history));
+  }, [history]);
+
+  const addToHistory = (artworkDetails) => {
+    console.log("Adding to history...");
+    if (!history.find((item) => item.id === artworkDetails.id)) {
+      const newHistory = [artworkDetails, ...history];
+
+      if (newHistory.length > 8) {
+        newHistory.pop();
+      }
+      setHistory(newHistory);
+      console.log(`Added to history: ${artworkDetails.title}`);
+    }
   };
-  const { addFavourite, favourites, removeFavourite } = route.params;
+
+  const navigateToDetailScreen = (artworkDetails) => {
+    if (artworkDetails) {
+      navigation.navigate("Artwork Detail Screen", {
+        artworkDetails,
+        history,
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 30, top: 200, fontFamily: "nunito-regular" }}>
+      <Text
+        style={{
+          color: "#190482",
+          fontSize: 30,
+          top: 200,
+          fontFamily: "nunito-regular",
+        }}
+      >
         Search Results
       </Text>
       <View style={styles.resultsContainer}>
@@ -38,6 +63,7 @@ export default function ResultsScreen({ route, navigation }) {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
+                addToHistory(item);
                 navigateToDetailScreen(item);
               }}
               style={styles.resultItem}
@@ -48,7 +74,7 @@ export default function ResultsScreen({ route, navigation }) {
         />
       </View>
       <View style={styles.navbar}>
-        <Nav navigation={navigation} />
+        <Nav navigation={navigation} history={history} />
       </View>
     </View>
   );
@@ -81,5 +107,7 @@ const styles = StyleSheet.create({
 
   resultText: {
     fontFamily: "nunito-regular",
+    fontSize: 20,
+    color: "#190482",
   },
 });

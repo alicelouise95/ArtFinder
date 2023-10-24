@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
   description: {
     flexDirection: "column",
-    top: -10,
+    top: 10,
   },
 
   navbar: {
