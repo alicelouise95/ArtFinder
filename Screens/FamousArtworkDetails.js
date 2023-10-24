@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import BackNavigator from "../BackNavigator";
 import Nav from "../Nav";
 
@@ -12,6 +12,14 @@ export default function FamousArtworkDetailScreen({ route, navigation }) {
         <BackNavigator navigation={navigation} />
       </View>
       <Image source={artwork.imageSource} style={styles.artworkImage} />
+      <View style={styles.favouriteButton}>
+        <TouchableOpacity onPress={() => {}}>
+          <Image
+            source={require("/Users/alicewheeler/Documents/Projects/ArtFinder/assets/favorite.png")}
+            style={{ width: 30, height: 30, margin: 40 }}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={styles.description}>
         <Text style={styles.title}>Title: {artwork.title}</Text>
         <Text style={styles.title}>Artist: {artwork.artist}</Text>
@@ -34,7 +42,7 @@ const styles = StyleSheet.create({
   artworkImage: {
     width: 300,
     height: 400,
-    bottom: 10,
+    top: 30,
   },
   title: {
     fontSize: 24,
@@ -44,16 +52,22 @@ const styles = StyleSheet.create({
   },
 
   backnav: {
-    bottom: 100,
+    flex: 1,
+    bottom: -20,
     right: 230,
   },
 
   description: {
     flexDirection: "column",
-    top: 30,
+    top: -10,
   },
 
   navbar: {
-    top: 140,
+    top: 80,
+  },
+
+  favouriteButton: {
+    top: 0,
+    left: 130,
   },
 });

@@ -82,12 +82,20 @@ export default function ArtworkDetailScreen({ route, navigation }) {
           />
         </TouchableOpacity>
         <Text style={styles.title}>{artworkDetails.title}</Text>
-        <Text style={styles.artworkAlt}>{altText}</Text>
+        {altText ? (
+          <Text style={styles.artworkAlt}>{altText}</Text>
+        ) : (
+          console.log("No alternative text")
+        )}
         <Text style={styles.artworkOrigin}>Country of origin: {origin}</Text>
       </View>
       <View style={styles.scrollContainer}>
         <ScrollView>
-          <Text style={styles.artDesc}>{description || ""}</Text>
+          {description ? (
+            <Text style={styles.artDesc}>{description}</Text>
+          ) : (
+            console.log("No description")
+          )}
         </ScrollView>
       </View>
       <Nav navigation={navigation} />
@@ -112,35 +120,36 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     fontFamily: "nunito-regular",
-    top: 40,
+    bottom: 210,
     justifyContent: "center",
     textAlign: "center",
   },
 
   addFavourites: {
-    top: 55,
+    bottom: 190,
     left: 130,
   },
 
   artworkAlt: {
     fontSize: 16,
     fontFamily: "nunito-regular",
-    top: 50,
+    bottom: 190,
     textAlign: "left",
   },
   artworkImage: {
     width: 300,
     height: 400,
-    top: 90,
+    bottom: 160,
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "#C2D9FF",
     justifyContent: "center",
     alignItems: "center",
   },
 
   backnav: {
+    flex: 1,
     right: 225,
     top: 40,
   },
@@ -148,7 +157,7 @@ const styles = StyleSheet.create({
   artworkOrigin: {
     fontSize: 15,
     fontFamily: "nunito-regular",
-    top: 70,
+    bottom: 180,
   },
 
   artDesc: {

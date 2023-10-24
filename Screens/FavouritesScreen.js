@@ -10,8 +10,6 @@ import Nav from "../Nav";
 import BackNavigator from "../BackNavigator";
 
 export default function FavouritesScreen({ navigation, route }) {
-  const { removeFavourite, favourites } = route.params;
-
   return (
     <View style={styles.container}>
       <View style={styles.backnav}>
@@ -20,23 +18,7 @@ export default function FavouritesScreen({ navigation, route }) {
       <View style={styles.header}>
         <Text style={styles.headerText}>Favourites</Text>
       </View>
-      <View style={styles.content}>
-        <FlatList
-          data={favourites}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.favouriteItem}>
-              <Text style={styles.favouriteText}>{item}</Text>
-              <TouchableOpacity
-                onPress={() => removeFavourite(item)}
-                style={styles.removeButton}
-              >
-                <Text>Remove</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-      </View>
+      <View style={styles.content}></View>
       <View style={styles.navbar}>
         <Nav navigation={navigation} />
       </View>
@@ -82,7 +64,8 @@ const styles = StyleSheet.create({
   },
 
   backnav: {
-    top: 30,
-    right: 10,
+    flex: 1,
+    top: "2%",
+    right: "3%",
   },
 });

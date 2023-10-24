@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
+  Alert,
+  Image,
 } from "react-native";
 import Nav from "../Nav";
 import FamousArt from "../FamousArt";
@@ -24,21 +26,14 @@ export default function Homepage({ navigation, route }) {
     Loadfonts();
   }, []);
 
+  useEffect(() => {
+    setUsername(route.params?.userName || "");
+  }, [route.params?.userName]);
+
   const [searchText, setSearchtext] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [resultsText, setResultsText] = useState("");
-  const [favourites, addFavourites] = useState([]);
-
-  const addFavorite = (title) => {
-    if (!favorites.includes(title)) {
-      setFavorites([...favorites, title]);
-    }
-  };
-
-  const removeFavorite = (title) => {
-    const updatedFavorites = favorites.filter((fav) => fav !== title);
-    setFavorites(updatedFavorites);
-  };
+  const [userName, setUsername] = useState(route.params?.userName || "");
 
   function SearchArt() {
     setIsLoading(true);
@@ -51,14 +46,12 @@ export default function Homepage({ navigation, route }) {
         if (totalResults === 0) {
           console.log("No results found");
           setResultsText("No results found");
+          Alert.alert("No results found.");
         } else {
           const first10Results = json.data.slice(0, 10);
           setResultsText(first10Results);
           navigation.navigate("Results Screen", {
             resultsText: first10Results,
-            addFavorite,
-            favourites,
-            removeFavorite,
           });
           console.log("10 results shown: ");
           first10Results.forEach((result, index) => {
@@ -85,7 +78,23 @@ export default function Homepage({ navigation, route }) {
             fontFamily: "nunito-regular",
           }}
         >
-          Art finder
+          art finder
+        </Text>
+        <Image
+          source={require("/Users/alicewheeler/Documents/Projects/ArtFinder/assets/Logo.png")}
+          style={{ width: 80, height: 80, margin: 40 }}
+        />
+      </View>
+      <View>
+        <Text
+          style={{
+            fontSize: 20,
+            paddingTop: 10,
+            color: "#190482",
+            fontFamily: "nunito-regular",
+          }}
+        >
+          {userName ? `Welcome back, ${userName}!` : "Welcome back!"}
         </Text>
       </View>
       <View style={styles.textinputContainer}>
@@ -96,27 +105,16 @@ export default function Homepage({ navigation, route }) {
           style={styles.addTextinput}
           onSubmitEditing={SearchArt}
         />
-        <TouchableOpacity
-          onPress={() => {
-            SearchArt();
-          }}
-          style={styles.Searchbutton}
-        >
-          <Text style={styles.fontStyling}>Search</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.filterContainer}>
-        <TouchableOpacity onPress={() => {}} style={styles.filterButtons}>
-          <Text style={styles.fontStyling}>Newest</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {}} style={styles.filterButtons}>
-          <Text style={styles.fontStyling}>Most Popular</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {}} style={styles.filterButtons}>
-          <Text style={styles.fontStyling}>Random</Text>
-        </TouchableOpacity>
+        <View style={styles.searchButton}>
+          <TouchableOpacity
+            onPress={() => {
+              SearchArt();
+            }}
+            style={styles.Searchbutton}
+          >
+            <Text style={styles.fontStyling}>Search</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.featuredcontainer}>
         <Text style={styles.fontStyling}>Featured artwork</Text>
@@ -129,7 +127,7 @@ export default function Homepage({ navigation, route }) {
         <FamousArt />
       </KeyboardAvoidingView>
 
-      <Nav navigation={navigation} removeFavorite={removeFavorite} />
+      <Nav navigation={navigation} />
     </View>
   );
 }
@@ -147,7 +145,6 @@ const styles = StyleSheet.create({
     top: "5%",
     width: "100%",
     alignItems: "center",
-    borderBottomWidth: 0.2,
     paddingTop: 40,
   },
 
@@ -156,12 +153,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-    bottom: 50,
+    top: 30,
     padding: 30,
   },
 
   addTextinput: {
     flex: 1,
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: "#190482",
+    width: 80,
+    height: 30,
+    paddingLeft: 10,
   },
 
   Searchbutton: {
@@ -173,20 +176,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#190482",
-  },
-
-  filterContainer: {
-    flexDirection: "row",
-    bottom: 150,
-    width: "100%",
-    justifyContent: "center",
-    paddingTop: 30,
-  },
-
-  filterButtons: {
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    padding: 10,
   },
 
   artContainer: {
@@ -201,8 +190,11 @@ const styles = StyleSheet.create({
 
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "#C2D9FF",
     justifyContent: "center",
     alignItems: "center",
+  },
+  searchButton: {
+    paddingLeft: 20,
   },
 });

@@ -8,15 +8,12 @@ import {
   Image,
 } from "react-native";
 
-export default function Nav({ navigation, removeFavourite, favourites }) {
+export default function Nav({ navigation }) {
   return (
     <View style={styles.navcontainer}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Favourites Screen", {
-            removeFavourite,
-            favourites,
-          });
+          navigation.navigate("Favourites Screen");
         }}
       >
         <Image
