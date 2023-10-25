@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import BackNavigator from "../BackNavigator";
 import Nav from "../Nav";
 
@@ -13,7 +20,11 @@ export default function FamousArtworkDetailScreen({ route, navigation }) {
       </View>
       <Image source={artwork.imageSource} style={styles.artworkImage} />
       <View style={styles.favouriteButton}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert("Added to favourites.");
+          }}
+        >
           <Image
             source={require("/Users/alicewheeler/Documents/Projects/ArtFinder/assets/favorite.png")}
             style={{ width: 30, height: 30, margin: 40 }}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,11 +10,9 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import Nav from "../Nav";
 import BackNavigator from "../BackNavigator";
 
-export default function HistoryScreen() {
+export default function HistoryScreen({ route }) {
   const navigation = useNavigation();
-  const route = useRoute();
   const history = route.params.history;
-
   console.log("history data: ", history);
 
   return (
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
 
   header: {
     flex: 1,
-    bottom: "15%",
+    bottom: "9%",
   },
 
   historyContainer: {

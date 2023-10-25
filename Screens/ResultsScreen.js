@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   resultsContainer: {
     position: "absolute",
     flex: 1,
-    top: 300,
+    top: 280,
     left: 10,
     textAlign: "justify",
   },

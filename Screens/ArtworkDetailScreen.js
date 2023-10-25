@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from "react-native";
 import Nav from "../Nav";
 import BackNavigator from "../BackNavigator";
@@ -69,11 +70,7 @@ export default function ArtworkDetailScreen({ route, navigation }) {
         />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Favourites Screen", {
-              addFavourite,
-              favourites,
-              removeFavourite,
-            });
+            Alert.alert("Added to favourites.");
           }}
           style={styles.addFavourites}
         >
@@ -121,26 +118,26 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     fontFamily: "nunito-regular",
-    bottom: 210,
+    bottom: 300,
     justifyContent: "center",
     textAlign: "center",
   },
 
   addFavourites: {
-    bottom: 190,
+    bottom: 280,
     left: 130,
   },
 
   artworkAlt: {
     fontSize: 16,
     fontFamily: "nunito-regular",
-    bottom: 190,
+    bottom: 280,
     textAlign: "left",
   },
   artworkImage: {
     width: 300,
     height: 400,
-    bottom: 160,
+    bottom: 250,
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -158,17 +155,16 @@ const styles = StyleSheet.create({
   artworkOrigin: {
     fontSize: 15,
     fontFamily: "nunito-regular",
-    bottom: 180,
+    bottom: 270,
   },
 
   artDesc: {
-    top: 140,
     fontSize: 16,
     fontFamily: "nunito-regular",
   },
 
   scrollContainer: {
-    maxHeight: 200,
+    maxHeight: 90,
     maxWidth: 350,
   },
 });

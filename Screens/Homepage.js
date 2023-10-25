@@ -27,7 +27,9 @@ export default function Homepage({ navigation, route }) {
   }, []);
 
   useEffect(() => {
-    setUsername(route.params?.userName || "");
+    if (route.params?.userName != null) {
+      setUsername(route.params?.userName || "");
+    }
   }, [route.params?.userName]);
 
   const [searchText, setSearchtext] = useState("");
